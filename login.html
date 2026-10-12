@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+          <style>
+              body {
+                  background-color: #f5efe6 !important;
+                   }
+          </style>
+</head>
+<body>
+    <main class="auth-container">
+        <section class="auth-card">
+            <h1>Welcome Back</h1>
+            <p class="welcome">Login to your account</p>
+
+            <form method="POST" id="loginForm" novalidate>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <span id="emailError" class="error"></span>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+                <span id="passwordError" class="error"></span>
+
+                {% if errors and errors.get('general') %}
+                    <p class="error">
+                        {{ errors.get('general') }}
+                    </p>
+                {% endif %}
+
+                <button type="submit" class="auth-button">Login</button>
+            </form>
+
+            <p class="auth-footer">
+                New user? <a href="/register">Register here</a>
+            </p>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById("loginForm").addEventListener(
+            "submit", function(event) {
+                let valid = true;
+
+                document.querySelectorAll("#loginForm span").forEach(
+                    span => span.textContent = ""
+                );
+
+                const email = document.getElementById("email").value.trim();
+                const password = document.getElementById("password").value;
+
+                if (!email) {
+                    document.getElementById("emailError").textContent =
+                        "Email is required";
+                    valid = false;
+                }
+
+                if (!password) {
+                    document.getElementById("passwordError").textContent =
+                        "Password is required";
+                    valid = false;
+                }
+
+                if (!valid) {
+                    event.preventDefault();
+                }
+            }
+        );
+    </script>
+</body>
+</html>

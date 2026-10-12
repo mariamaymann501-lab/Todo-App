@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+          
+</head>
+<body>
+    <main class="auth-container">
+        <section class="auth-card">
+            <h1>Create Account</h1>
+            <p class="welcome">Register to start managing your tasks</p>
+
+            <form method="POST" id="registerForm" novalidate>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+                <span id="nameError" class="error"></span>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <span id="emailError" class="error">{{ errors.get('email', '') if errors else '' }}</span>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+                <span id="passwordError" class="error"></span>
+
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password"
+                       name="confirm_password">
+                <span id="confirmPasswordError" class="error"></span>
+
+                <button type="submit" class="auth-button">
+                    Register
+                </button>
+            </form>
+
+            <p class="auth-footer">
+                Already have an account? <a href="/login">Login</a>
+            </p>
+        </section>
+    </main>
+
+    <script>
+        const form = document.getElementById("registerForm");
+
+        form.addEventListener("submit", function(event) {
+            let valid = true;
+
+            document.querySelectorAll("#registerForm span").forEach(
+                span => span.textContent = ""
+            );
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword =
+                document.getElementById("confirm_password").value;
+
+            if (!name) {
+                document.getElementById("nameError").textContent =
+                    "Name is required";
+                valid = false;
+            }
+
+            if (!email) {
+                document.getElementById("emailError").textContent =
+                    "Email is required";
+                valid = false;
+            }
+
+            if (!password) {
+                document.getElementById("passwordError").textContent =
+                    "Password is required";
+                valid = false;
+            }
+
+            if (!confirmPassword) {
+                document.getElementById("confirmPasswordError").textContent =
+                    "Confirm password is required";
+                valid = false;
+            } else if (password !== confirmPassword) {
+                document.getElementById("confirmPasswordError").textContent =
+                    "Passwords do not match";
+                valid = false;
+            }
+
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
