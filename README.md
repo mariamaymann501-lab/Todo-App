@@ -1,6 +1,6 @@
 Todo App
 Team Members :
-Member 1: Mariam Ayman Ahmed -- 2304069
+Member 1: Mariam Ayman Ahmed -- 2304068
 * Designed and implemented the MySQL database schema.
 * Implemented user registration, login, logout, and session management.
 * Implemented password hashing and duplicate-email handling.
