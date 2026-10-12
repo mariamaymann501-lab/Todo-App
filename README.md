@@ -22,7 +22,7 @@ Both members contributed commits to the shared repository.
 ------------------
 A simple Todo List web application built with Flask and MySQL.
 
-Features
+Features:
 * User registration and login
 * Password hashing using bcrypt
 * User-specific todo lists
@@ -31,7 +31,7 @@ Features
 * Server-side input validation
 * Parameterized SQL queries
 
-Technologies Used
+Technologies Used:
 * Python
 * Flask
 * MySQL
@@ -40,12 +40,12 @@ Technologies Used
 * python-dotenv
 * HTML
 
-Requirements
+Requirements:
 * Python
 * MySQL Server
 * MySQL Workbench
 
-Setup Instructions
+Setup Instructions:
 1. Clone or download the project.
 2. Create a virtual environment:
     python -m venv .venv
@@ -59,13 +59,26 @@ Setup Instructions
     python app.py
 8. Open http://127.0.0.1:5000 in your browser.
 
-Security Notes
+Security Notes:
 * Passwords are hashed using bcrypt.
 * SQL queries use parameters.
 * Database credentials are stored in .env, which should not be committed to Git.
 
+Database Questions:
+(a) Why do UPDATE and DELETE contain AND user_id = ??
+The condition ensures that a user can update or delete only their own to-dos. Without it, a user could modify or delete another user’s to-do if they know its ID.
+
+(b) What happens if a to-do is inserted for a user_id that does not exist?
+The database rejects the insertion because the user_id references a user that does not exist in the users table. This is the foreign key constraint, which enforces referential integrity.
+
+(c) Why store a password hash instead of the password?
+Storing a bcrypt hash protects users’ original passwords from being exposed directly if the database is compromised. During login, the application verifies the entered password against the stored hash.
+
+(d) Why check for an empty name if the column is NOT NULL?
+NOT NULL prevents a value from being NULL, but it still allows an empty string (''). The application must validate the name and reject empty or whitespace-only input.
 
 <img width="1600" height="880" alt="image" src="https://github.com/user-attachments/assets/37f8412b-e307-4008-9659-0000c2cb1916" />
 <img width="1600" height="880" alt="WhatsApp Image 2026-10-12 at 11 32 23 PM" src="https://github.com/user-attachments/assets/444a908d-f64e-41d4-b4d3-af31a17979d0" />
 <img width="905" height="731" alt="WhatsApp Image 2026-10-12 at 11 34 51 PM" src="https://github.com/user-attachments/assets/5cfd92a1-860a-44c5-9510-1bfb19f2d563" />
 <img width="1222" height="638" alt="WhatsApp Image 2026-10-12 at 11 35 10 PM" src="https://github.com/user-attachments/assets/4620c0c9-08c4-4863-ade2-aa8eb4282bcf" />
+<img width="1600" height="854" alt="WhatsApp Image 2026-10-12 at 11 45 01 PM" src="https://github.com/user-attachments/assets/67858296-5a0c-4eec-8cc1-8c53491fb470" />
