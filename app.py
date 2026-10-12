@@ -122,7 +122,7 @@ def login():
                 password.encode("utf-8"),
                 user["password_hash"].encode("utf-8")
             ):
-                session["user_id"] = user["user_ID"]
+                session["user_id"] = user["user_id"]
                 session["name"] = user["name"]
                 return redirect("/todos")
 
@@ -240,7 +240,7 @@ def edit_task(todo_id):
         cursor.execute(
             """UPDATE todos
                SET title = %s
-               WHERE todos_ID = %s AND user_ID = %s""",
+               WHERE todo_id = %s AND user_id = %s""",
             (title, todo_id, session["user_id"])
         )
         db.commit()
@@ -264,7 +264,7 @@ def mark_done(todo_id):
         cursor.execute(
             """UPDATE todos
                SET is_done = 1
-               WHERE todoS_ID = %s AND user_ID= %s""",
+               WHERE todo_id = %s AND user_id= %s""",
             (todo_id, session["user_id"])
         )
         db.commit()
@@ -288,7 +288,7 @@ def mark_not_done(todo_id):
         cursor.execute(
             """UPDATE todos
                SET is_done = 0
-               WHERE todoS_ID = %s AND user_ID = %s""",
+               WHERE todo_id = %s AND user_id = %s""",
             (todo_id, session["user_id"])
         )
         db.commit()
@@ -311,7 +311,7 @@ def delete_task(todo_id):
     try:
         cursor.execute(
             """DELETE FROM todos
-               WHERE todos_ID = %s AND user_id = %s""",
+               WHERE todo_id = %s AND user_id = %s""",
             (todo_id, session["user_id"])
         )
         db.commit()
